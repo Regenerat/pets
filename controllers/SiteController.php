@@ -136,13 +136,12 @@ class SiteController extends Controller
             if ($model->load($this->request->post())) {
                 $model->role_id = Role::USER_STATUS_ID;
                 if($model->save()) {
-                    return $this->redirect(['index', 'id' => $model->id]);
+                    return $this->redirect(['login', 'id' => $model->id]);
                 }        
             }
         } else {
             $model->loadDefaultValues();
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
