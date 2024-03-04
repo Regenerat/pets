@@ -116,6 +116,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return null;
     }
 
+    public static function login($name, $password) {
+        $user = static::find()->where(['name' => $name])->one();
+
+        if ($user && $user->validatePassword($password)) {
+            return $user;
+        }
+
+        return false;
+    }
+
     /**
      * Validates password
      *
