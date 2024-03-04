@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Role;
 use app\models\User;
+use app\models\UserRegister;
 
 class SiteController extends Controller
 {
@@ -130,7 +131,7 @@ class SiteController extends Controller
 
     public function actionRegister()
     {
-        $model = new User();
+        $model = new UserRegister();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
