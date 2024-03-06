@@ -13,7 +13,7 @@ use Yii;
  * @property string $password
  * @property int $role_id
  *
- * @property PetRequests[] $petRequests
+ * @property Requests[] $Requests
  * @property Role $role
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
@@ -57,13 +57,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
-     * Gets query for [[PetRequests]].
+     * Gets query for [[Requests]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPetRequests()
+    public function getRequests()
     {
-        return $this->hasMany(PetRequests::class, ['user_id' => 'id']);
+        return $this->hasMany(Requests::class, ['user_id' => 'id']);
     }
 
     /**

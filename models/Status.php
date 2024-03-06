@@ -10,10 +10,14 @@ use Yii;
  * @property int $id
  * @property string $status
  *
- * @property PetRequests[] $petRequests
+ * @property Requests[] $Requests
  */
 class Status extends \yii\db\ActiveRecord
 {
+    public function __toString() {
+        return $this->status;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -45,12 +49,12 @@ class Status extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[PetRequests]].
+     * Gets query for [[Requests]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPetRequests()
+    public function getRequests()
     {
-        return $this->hasMany(PetRequests::class, ['status_id' => 'id']);
+        return $this->hasMany(Requests::class, ['status_id' => 'id']);
     }
 }
