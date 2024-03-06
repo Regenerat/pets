@@ -1,6 +1,8 @@
 <?php
 
 use app\models\Requests;
+use app\models\Role;
+use app\models\Status;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -39,10 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=> 'update admin_message',
                 'format'=> 'raw',
-                'visible' => (Yii::$app->user->identity->role_id == '1')?true:false,
+                'visible' => (Yii::$app->user->identity->role_id == Role::ADMIN_STATUS_ID)?true:false,
                 'value'=> function ($model) {
                     $html = Html::beginForm(Url::to(['update', 'id' => $model->id])); 
-                    if($model->status_id == '2') {
+                    if($model->status_id == Status::CONFIRMED_STATUS_ID) {
                         $html .= Html::a('Update', Url::to(['update', 'id' => $model->id]), ['class' => 'btn btn-primary']);
                     }
                     $html .= Html::endForm();
@@ -52,10 +54,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=> 'change status',
                 'format'=> 'raw',
-                'visible' => (Yii::$app->user->identity->role_id == '1')?true:false,
+                'visible' => (Yii::$app->user->identity->role_id == Role::ADMIN_STATUS_ID)?true:false,
                 'value'=> function ($model) {
                     $html = Html::beginForm(Url::to(['update', 'id' => $model->id])); 
-                    if($model->status_id == '1') {
+                    if($model->status_id == Status::NEW_STATUS_ID) {
                         $html .= Html::activeDropDownList($model, 'status_id', [
                             2 => 'Принята',
                             3 => 'Отклонена',
@@ -71,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                         $html .= Html::submitButton('Принять', ['class' => 'btn btn-link']);
                     }
-                    else if($model->status_id == '2') {
+                    else if($model->status_id == Status::CONFIRMED_STATUS_ID) {
                         $html .= Html::activeDropDownList($model, 'status_id', [
                             4 => 'Найден',
                             3 => 'Не найден',
