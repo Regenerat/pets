@@ -14,6 +14,12 @@ use Yii;
  */
 class Status extends \yii\db\ActiveRecord
 {
+    const NEW_STATUS_ID = 1;
+    const CONFIRMED_STATUS_ID = 2;
+    const DECLINED_STATUS_ID = 3;
+    const FIND_STATUS_ID = 4;
+    const NOT_FIND_STATUS_ID = 5;
+
     public function __toString() {
         return $this->status;
     }
