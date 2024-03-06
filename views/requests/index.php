@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=> function ($model) {
                     $html = Html::beginForm(Url::to(['update', 'id' => $model->id])); 
                     if($model->status_id == '2') {
-                        $html .= Html::a('Update', Url::to('requests/update', true), ['class' => 'btn btn-primary']);
+                        $html .= Html::a('Update', Url::to(['update', 'id' => $model->id]), ['class' => 'btn btn-primary']);
                     }
                     $html .= Html::endForm();
                     return $html;    
