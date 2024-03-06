@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Requests;
 use app\models\RequestsSearch;
+use app\models\Status;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -93,8 +94,16 @@ class RequestsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+        $model->load($this->request->post());
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            if (in_array($model->dirtyAttributes['status_id'], [Status::FIND_STATUS_ID, Status::NOT_FIND_STATUS_ID]) && !$model->admin_message) {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+            if ($model->save()) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
