@@ -14,6 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'admin_message')->textarea(['rows' => 6]) ?>
 
+    <div class="d-none">
+    <?= $form->field($model, 'status_id')->hiddenInput() ?>
+    </div>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
