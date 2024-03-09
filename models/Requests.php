@@ -37,6 +37,7 @@ class Requests extends \yii\db\ActiveRecord
             [['name', 'description', 'missing_date', 'user_id', 'status_id'], 'required'],
             [['description', 'admin_message'], 'string'],
             [['missing_date'], 'safe'],
+            [['missing_date'], 'date', 'format'=> 'yyyy-M-d'],
             [['user_id', 'status_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
