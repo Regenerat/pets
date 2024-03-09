@@ -49,7 +49,7 @@ class RequestsController extends Controller
             return $this->goHome();
         }
 
-        if (Yii::$app->user->identity->role_id == Role::ADMIN_STATUS_ID) {
+        if (Yii::$app->user->identity->role_id == Role::USER_STATUS_ID) {
             $dataProvider = $searchModel->search($this->request->queryParams, Yii::$app->user->identity->id);
         }
         else {
