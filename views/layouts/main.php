@@ -47,6 +47,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         $items[] = ['label' => 'Login', 'url' => ['/site/login']];
         $items[] = ['label' => 'Register', 'url' => ['/site/register']];
     } else {
+        $items[] = ['label' => 'Pet requests', 'url' => ['/requests']];
         $items[] = '<li class="nav-item">'
             . Html::beginForm(['/site/logout'])
             . Html::submitButton(
