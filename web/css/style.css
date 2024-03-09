@@ -52,3 +52,10 @@
     max-width: 538px;
     padding-left: 36px;
 }
+
+.br-block-green {
+    background-color: #ecf5f1;
+    border: solid;
+    border-color: #e9f1ee;
+    border-radius: 40px;
+}
