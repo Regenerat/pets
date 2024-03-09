@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Requests;
 use app\models\RequestsSearch;
+use app\models\Role;
 use app\models\Status;
 use Yii;
 use yii\web\Controller;
@@ -43,7 +44,12 @@ class RequestsController extends Controller
         $searchModel = new RequestsSearch();
         
         $searchModel = new RequestsSearch();
-        if (Yii::$app->user->identity->role_id == 2) {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        if (Yii::$app->user->identity->role_id == Role::ADMIN_STATUS_ID) {
             $dataProvider = $searchModel->search($this->request->queryParams, Yii::$app->user->identity->id);
         }
         else {
@@ -57,19 +63,6 @@ class RequestsController extends Controller
     }
 
     /**
-     * Displays a single Requests model.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Requests model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
@@ -77,6 +70,10 @@ class RequestsController extends Controller
     public function actionCreate()
     {
         $model = new Requests();
+
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->role_id == Role::ADMIN_STATUS_ID) {
+            return $this->goHome();
+        }
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -108,6 +105,7 @@ class RequestsController extends Controller
         $model = $this->findModel($id);
 
         $model->load($this->request->post());
+
         if ($this->request->isPost && $model->load($this->request->post())) {
             if (in_array($model->dirtyAttributes['status_id'], [Status::FIND_STATUS_ID, Status::NOT_FIND_STATUS_ID]) && !$model->admin_message) {
                 return $this->render('update', [
@@ -122,20 +120,6 @@ class RequestsController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Deletes an existing Requests model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**
