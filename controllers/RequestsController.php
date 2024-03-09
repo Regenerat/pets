@@ -41,7 +41,14 @@ class RequestsController extends Controller
     public function actionIndex()
     {
         $searchModel = new RequestsSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        
+        $searchModel = new RequestsSearch();
+        if (Yii::$app->user->identity->role_id == 2) {
+            $dataProvider = $searchModel->search($this->request->queryParams, Yii::$app->user->identity->id);
+        }
+        else {
+            $dataProvider = $searchModel->search($this->request->queryParams);
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,

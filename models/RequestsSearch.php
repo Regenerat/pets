@@ -38,7 +38,7 @@ class RequestsSearch extends Requests
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $id = null)
     {
         $query = Requests::find();
 
@@ -60,7 +60,7 @@ class RequestsSearch extends Requests
         $query->andFilterWhere([
             'id' => $this->id,
             'missing_date' => $this->missing_date,
-            'user_id' => $this->user_id,
+            'user_id' => ($id ?? $this->user_id),
             'status_id' => $this->status_id,
         ]);
 
