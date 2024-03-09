@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $description
- * @property string|null $admin-message
+ * @property string|null $admin_message
  * @property string $missing_date
  * @property int $user_id
  * @property int $status_id
@@ -18,7 +18,7 @@ use Yii;
  * @property Status $status
  * @property User $user
  */
-class PetRequests extends \yii\db\ActiveRecord
+class Requests extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -35,8 +35,9 @@ class PetRequests extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'description', 'missing_date', 'user_id', 'status_id'], 'required'],
-            [['description', 'admin-message'], 'string'],
+            [['description', 'admin_message'], 'string'],
             [['missing_date'], 'safe'],
+            [['missing_date'], 'date', 'format'=> 'yyyy-M-d'],
             [['user_id', 'status_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
@@ -53,7 +54,7 @@ class PetRequests extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
-            'admin-message' => 'Admin Message',
+            'admin_message' => 'Admin Message',
             'missing_date' => 'Missing Date',
             'user_id' => 'User ID',
             'status_id' => 'Status ID',
